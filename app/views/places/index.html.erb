@@ -1,5 +1,9 @@
 <h1>Places</h1>
 
+
+<a href="/login">Login</a>
+<a href="/signup">Signup</a>
+
 <ul>
   <% for place in @places %>
     <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
