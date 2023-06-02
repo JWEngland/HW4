@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+  <div class="user-info">
+    <% if @current_user_instance %>
+      Welcome, <%= @current_user_instance.username %>
+    <% end %>
+  </div>
     <link rel="stylesheet" href="/stylesheets/application.css">
   </head>
 

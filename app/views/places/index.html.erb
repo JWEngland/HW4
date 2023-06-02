@@ -10,5 +10,9 @@
 </ul>
 
 <p>
-  <a href="/places/new">New place</a>
+  <% if current_user %>
+    <%= link_to 'New place', new_place_path %>
+  <% else %>
+    Please log in to create a new place.
+  <% end %>
 </p>
