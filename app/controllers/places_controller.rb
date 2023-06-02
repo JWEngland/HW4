@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-
+  
   def index
     @places = Place.all
   end
@@ -10,7 +10,7 @@ class PlacesController < ApplicationController
   end
 
   def new
-    @place = Place.new
+    @place = Place.new 
   end
 
   def create
@@ -19,5 +19,6 @@ class PlacesController < ApplicationController
     @place.save
     redirect_to "/places"
   end
+ 
 
 end
