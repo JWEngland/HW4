@@ -1,8 +1,12 @@
 class User < ApplicationRecord
+  # Attributes
+  attr_accessor :first_name, :last_name, :email, :password
 
-  class User < ApplicationRecord
-    attr_accessor :first_name
-    # or
-    # attr_accessible :first_name
-  end
+  # Validations
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true
+  validates :password, presence: true
+
+  # Associations, Methods, etc.
 end
