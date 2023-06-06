@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
   def new
-    @user = User.new(first_name: "", last_name: "", email: "", password: "", username: "")
+    @user = User.new
   end
   
   def create
     @user = User.new(user_params)
-
+  
     if @user.save
-      # Redirect to home page with user details displayed
       session[:user_id] = @user.id
       redirect_to root_path, notice: 'User was successfully created.'
     else
       render :new
     end
   end
+  
 
   private
 
