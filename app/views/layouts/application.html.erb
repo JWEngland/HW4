@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tacostagram Final</title>
+    <title>Places App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_include_tag 'application' %>
     <link rel="stylesheet" href="/stylesheets/application.css">
   </head>
 
@@ -15,7 +16,7 @@
     </div>
     <div>
       <a href="/">Home</a>
-      <a href="/logout">Logout</a>
+      <a href="<%= logout_path %>" data-method="delete">Logout</a>
       <a href="/login">Login</a>
       <a href="/users/new">Signup</a>
     </div>
