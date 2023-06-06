@@ -1,17 +1,17 @@
 class UserSessionsController < ApplicationController
   def new
-    @user_session = User.new
+    @user_session = UserSession.new
   end
 
   def create
-    @user = User.find_by(username: params[:user][:username])
+    @user = User.find_by(username: params[:user_session][:username])
 
-    if @user && @user.authenticate(params[:user][:password])
+    if @user&.authenticate(params[:user_session][:password])
       session[:user_id] = @user.id
-      redirect_to places_path, notice: 'Logged in successfully.'
+      redirect_to root_path, notice: 'Logged in successfully.'
     else
       flash.now[:alert] = 'Invalid username or password.'
-      @user = User.new(username: params[:user][:username])
+      @user_session = UserSession.new(username: params[:user_session][:username])
       render :new
     end
   end
