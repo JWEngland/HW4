@@ -9,12 +9,7 @@
   </head>
 
   <body>
-    <div class="user-info">
-      <% if @current_user_instance %>
-        Welcome, <%= @current_user_instance.username %>
-      <% end %>
-    </div>
-
+    
     <div>
       <%= flash["notice"] %>
     </div>

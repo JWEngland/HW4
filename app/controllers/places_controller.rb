@@ -1,24 +1,30 @@
 class PlacesController < ApplicationController
-  
   def index
     @places = Place.all
   end
 
   def show
-    @place = Place.find_by({ "id" => params["id"] })
-    @posts = Post.where({ "place_id" => @place["id"] })
+    @place = Place.find_by(id: params[:id])
+    @posts = Post.where(place_id: @place.id)
   end
 
   def new
-    @place = Place.new 
+    @place = Place.new
   end
 
   def create
-    @place = Place.new
-    @place["name"] = params["place"]["name"]
-    @place.save
-    redirect_to "/places"
-  end
- 
+    @place = current_user.places.build(place_params)
 
+    if @place.save
+      redirect_to places_path, notice: 'Place was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def place_params
+    params.require(:place).permit(:name)
+  end
 end
