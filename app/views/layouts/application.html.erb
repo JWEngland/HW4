@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-  <div class="user-info">
-    <% if @current_user_instance %>
-      Welcome, <%= @current_user_instance.username %>
-    <% end %>
-  </div>
     <link rel="stylesheet" href="/stylesheets/application.css">
   </head>
 
   <body>
-  
+    <div class="user-info">
+      <% if @current_user_instance %>
+        Welcome, <%= @current_user_instance.username %>
+      <% end %>
+    </div>
+
     <div>
       <%= flash["notice"] %>
     </div>
@@ -24,11 +24,10 @@
       <a href="/login">Login</a>
       <a href="/users/new">Signup</a>
     </div>
-<% if current_user %>
+
+    <% if current_user %>
       <p>Logged in as: <%= current_user.email %> (Username: <%= current_user.username %>)</p>
     <% end %>
-
-    <%= yield %>
 
     <%= yield %>
   </body>
