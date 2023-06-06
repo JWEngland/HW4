@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'places#index'
-
+  
   resources :places
   resources :posts
   resources :user_sessions, only: [:new, :create, :destroy]
@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   post '/login', to: 'user_sessions#create'
   get '/logout', to: 'user_sessions#destroy', as: :logout
 
-  resources :users, only: [:new, :create], path_names: { new: 'signup' }
-  get '/users/new', to: 'users#new', as: 'new_user'
+  get '/users/new', to: 'users#new'
+  post '/users', to: 'users#create'
 end
