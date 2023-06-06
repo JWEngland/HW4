@@ -4,11 +4,9 @@ Rails.application.routes.draw do
   resources :places
   resources :posts
 
-  resources :user_sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
-
-  get '/login', to: 'user_sessions#new'
+  get '/login', to: 'user_sessions#new', as: 'login'
   post '/login', to: 'user_sessions#create'
-  delete '/logout', to: 'user_sessions#destroy'
-end
+  delete '/logout', to: 'user_sessions#destroy', as: :logout
 
+  resources :users, only: [:new, :create]
+end
