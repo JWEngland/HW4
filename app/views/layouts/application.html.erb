@@ -11,15 +11,15 @@
 
   <body>
     
-    <div>
-      <%= flash["notice"] %>
-    </div>
-    <div>
-      <a href="/">Home</a>
-      <a href="<%= logout_path %>" data-method="delete">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
-    </div>
+   <div>
+  <%= flash["notice"] %>
+</div>
+<div>
+  <a href="/">Home</a>
+  <%= link_to "Logout", logout_path, method: :delete %>
+  <a href="/login">Login</a>
+  <a href="/users/new">Signup</a>
+</div>
 
     <% if current_user %>
       <p>Logged in as: <%= current_user.email %> (Username: <%= current_user.username %>)</p>
