@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
-  get 'signup', to: 'users#new'
-  post 'signup', to: 'users#create'
+  get 'registrations/new'
+  get 'registrations/create'
+  get 'user_sessions/new'
+  get 'user_sessions/create'
 
-  get 'login', to: 'user_sessions#new'
-  post 'login', to: 'user_sessions#create'
-  delete 'logout', to: 'user_sessions#destroy'
+  # Set the root route explicitly with the 'as' option
+  root to: 'places#index', as: 'root'
 
   resources :places
   resources :posts
-  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create]
 
-  root to: 'places#index', as: 'root'
+  get '/login', to: 'user_sessions#new'
+  post '/login', to: 'user_sessions#create'
+  delete '/logout', to: 'user_sessions#destroy'
+
+  # Remaining routes...
+
 end

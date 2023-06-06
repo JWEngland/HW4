@@ -1,35 +1,11 @@
-<h1>Signup</h1>
+<h1>Login</h1>
 
-
-<h1>New User Account</h1>
-
-<%= form_for @user do |f| %>
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit 'Create Account' %>
-  </div>
+<%= form_for @user_session, url: login_path, method: :post do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+  <br>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <br>
+  <%= f.submit 'Log in' %>
 <% end %>
