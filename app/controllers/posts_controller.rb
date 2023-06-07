@@ -15,4 +15,20 @@ class PostsController < ApplicationController
     redirect_to "/places/#{@post["place_id"]}"
   end
 
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :description, :posted_on)
+  end
+
+  def authenticate_user
+    # Add your authentication logic here
+    # For example, you can use Devise gem or implement your own authentication
+    # You can redirect to login page if user is not logged in
+    redirect_to login_path unless current_user
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
 end

@@ -1,5 +1,10 @@
 <h1>New Post</h1>
 
+<% @user.posts.each do |post| %>
+  <p><%= link_to post.title, post_path(post) %></p>
+<% end %>
+
+
 <%= form_with :model => @post do |form| %>
   <%= form.hidden_field "place_id" %>
   <p>

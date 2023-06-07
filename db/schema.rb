@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_013645) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_07_001227) do
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_places_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -44,4 +46,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_06_013645) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "places", "users"
 end

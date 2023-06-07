@@ -1,0 +1,6 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.description %></p>
+<p>Posted on: <%= @post.posted_on.strftime("%B %d, %Y") %></p>
+<% if @post.image.attached? %>
+  <%= image_tag @post.image %>
+<% end %>
