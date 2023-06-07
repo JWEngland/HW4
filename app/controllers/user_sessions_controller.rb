@@ -6,14 +6,14 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user_session][:email])
+    @user = User.find_by(email: params[:user][:email])
 
-    if @user&.authenticate(params[:user_session][:password])
+    if @user&.authenticate(params[:user][:password])
       session[:user_id] = @user.id
       redirect_to places_path, notice: 'Logged in successfully.'
     else
       if @user.nil?
-        flash.now[:alert] = 'Invalid username.'
+        flash.now[:alert] = 'Invalid email.'
       else
         flash.now[:alert] = 'Invalid password.'
       end

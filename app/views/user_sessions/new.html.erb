@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<%= form_with(model: @user, url: user_sessions_path, local: true) do |form| %>
+<%= form_with(url: login_path, local: true) do |form| %>
   <% if flash[:alert].present? %>
     <div class="alert alert-danger" role="alert">
       <%= flash[:alert] %>
