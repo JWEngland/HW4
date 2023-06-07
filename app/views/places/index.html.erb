@@ -1,18 +1,23 @@
 <h1>Places</h1>
 
+<% if current_user %>
+  <ul>
+    <% @places.each do |place| %>
+      <li><a href="/places/<%= place.id %>"><%= place.name %></a></li>
+    <% end %>
+  </ul>
 
-
-
-<ul>
-  <% for place in @places %>
-    <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
-  <% end %>
-</ul>
-
-<p>
-  <% if current_user %>
+  <p>
     <%= link_to 'New place', new_place_path %>
-  <% else %>
-    Please log in to create a new place.
+  </p>
+<% else %>
+  <p>Please log in to view places and create a new place.</p>
+<% end %>
+
+<% if current_user %>
+  <h2>Your Posts</h2>
+  <% current_user.posts.each do |post| %>
+    <p><%= post.title %></p>
+    <p><%= post.content %></p>
   <% end %>
-</p>
+<% end %>
