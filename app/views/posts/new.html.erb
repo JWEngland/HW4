@@ -1,27 +1,30 @@
-<h1>New Post</h1>
+class PostsController < ApplicationController
+  before_action :require_login, only: [:new, :create]
 
-<%= form_with(model: @post, url: posts_path, local: true) do |form| %>
-  <% if @post.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <ul>
-        <% @post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  def new
+    @post = Post.new
+  end
 
-  <div class="form-group">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: 'form-control' %>
-  </div>
+  def create
+    @post = current_user.posts.build(post_params)
 
-  <div class="form-group">
-    <%= form.label :content %>
-    <%= form.text_area :content, class: 'form-control' %>
-  </div>
+    if @post.save
+      redirect_to @post, notice: 'Post was successfully created.'
+    else
+      render :new
+    end
+  end
 
-  <div class="form-group">
-    <%= form.submit 'Create Post', class: 'btn btn-primary' %>
-  </div>
-<% end %>
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content)
+  end
+
+  def require_login
+    unless current_user
+      flash[:alert] = 'You must be logged in to create a post.'
+      redirect_to login_path
+    end
+  end
+end
