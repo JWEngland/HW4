@@ -6,17 +6,22 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:user][:email])
+    if params[:user].present? && params[:user][:email].present? && params[:user][:password].present?
+      @user = User.find_by(email: params[:user][:email])
 
-    if @user&.authenticate(params[:user][:password])
-      session[:user_id] = @user.id
-      redirect_to places_path, notice: 'Logged in successfully.'
-    else
-      if @user.nil?
-        flash.now[:alert] = 'Invalid email.'
+      if @user&.authenticate(params[:user][:password])
+        session[:user_id] = @user.id
+        redirect_to places_path, notice: 'Logged in successfully.'
       else
-        flash.now[:alert] = 'Invalid password.'
+        if @user.nil?
+          flash.now[:alert] = 'Invalid email.'
+        else
+          flash.now[:alert] = 'Invalid password.'
+        end
+        render :new, status: :unprocessable_entity
       end
+    else
+      flash.now[:alert] = 'Invalid user parameters.'
       render :new, status: :unprocessable_entity
     end
   end
