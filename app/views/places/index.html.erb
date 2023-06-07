@@ -1,23 +1,41 @@
 <h1>Places</h1>
 
-<% if current_user %>
-  <ul>
-    <% @places.each do |place| %>
-      <li><a href="/places/<%= place.id %>"><%= place.name %></a></li>
-    <% end %>
-  </ul>
-
-  <p>
-    <%= link_to 'New place', new_place_path %>
-  </p>
-<% else %>
-  <p>Please log in to view places and create a new place.</p>
-<% end %>
-
-<% if current_user %>
-  <h2>Your Posts</h2>
-  <% current_user.posts.each do |post| %>
-    <p><%= post.title %></p>
-    <p><%= post.content %></p>
+<ul>
+  <% @places.each do |place| %>
+    <li>
+      <%= link_to place.name, place_path(place) %>
+      <% if place.image.attached? %>
+        <%= image_tag place.image.variant(resize_to_limit: [200, 200]) %>
+      <% end %>
+    </li>
   <% end %>
+</ul>
+
+<p>
+  <% if current_user %>
+    <%= link_to 'New place', new_place_path %>
+  <% else %>
+    Please log in to create a new place.
+  <% end %>
+</p>
+
+<%= form_with model: @place, url: places_path, local: true do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :image %><br>
+    <%= form.file_field :image %>
+  </div>
+
+  <div>
+    <%= form.submit 'Create Place' %>
+  </div>
 <% end %>
