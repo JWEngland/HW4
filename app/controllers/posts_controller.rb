@@ -1,34 +1,30 @@
 class PostsController < ApplicationController
+  before_action :require_login, only: [:new, :create]
 
   def new
     @post = Post.new
-    @post.place_id = params["place_id"]
   end
 
   def create
-    @post = Post.new
-    @post["title"] = params["post"]["title"]
-    @post["description"] = params["post"]["description"]
-    @post["posted_on"] = params["post"]["posted_on"]
-    @post["place_id"] = params["post"]["place_id"]
-    @post.save
-    redirect_to "/places/#{@post["place_id"]}"
+    @post = current_user.posts.build(post_params)
+
+    if @post.save
+      redirect_to @post, notice: 'Post was successfully created.'
+    else
+      render :new
+    end
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :description, :posted_on)
+    params.require(:post).permit(:title, :content)
   end
 
-  def authenticate_user
-    # Add your authentication logic here
-    # For example, you can use Devise gem or implement your own authentication
-    # You can redirect to login page if user is not logged in
-    redirect_to login_path unless current_user
-  end
-
-  def show
-    @post = Post.find(params[:id])
+  def require_login
+    unless current_user
+      flash[:alert] = 'You must be logged in to create a post.'
+      redirect_to login_path
+    end
   end
 end
