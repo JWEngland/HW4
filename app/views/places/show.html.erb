@@ -1,16 +1,37 @@
-<h1><%= @place["name"] %></h1>
+<h1><%= @place.name %></h1>
 
-<h2>My Posts</h2>
-<% for post in @posts %>
-  <h3><%= post["title"] %></h3>
-  <h4><%= post["posted_on"] %></h4>
-  <p><%= post["description"] %></p>
+<p><%= @place.description %></p>
+
+<% if @place.image.attached? %>
+  <%= image_tag @place.image.variant(resize_to_limit: [200, 200]) %>
 <% end %>
 
-<p>
-  <a href="/posts/new?place_id=<%= @place["id"] %>">New Post</a>
-</p>
+<% if current_user && current_user == @place.user %>
+  <h3>Add a Post</h3>
 
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
+  <%= form_with(model: [@place, @post], local: true) do |form| %>
+    <div>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </div>
+
+    <div>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </div>
+
+    <div>
+      <%= form.label :date_posted %><br>
+      <%= form.date_select :date_posted %>
+    </div>
+
+    <div>
+      <%= form.label :image %><br>
+      <%= form.file_field :image %>
+    </div>
+
+    <div>
+      <%= form.submit "Create Post" %>
+    </div>
+  <% end %>
+<% end %>

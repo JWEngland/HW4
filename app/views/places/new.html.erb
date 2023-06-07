@@ -1,11 +1,12 @@
 <h1>New Place</h1>
 
-<%= form_with :model => @place do |form| %>
+<%= form_with(model: @place, url: places_path) do |form| %>
   <p>
-    <%= form.label "name" %>
-    <%= form.text_field "name" %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
   </p>
   <p>
     <%= form.submit %>
   </p>
 <% end %>
+

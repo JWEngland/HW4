@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  root to: 'places#index'
-  
+  root 'places#index'
   resources :places
-  resources :posts
+
+  resources :places do
+    resources :posts, only: [:new, :create]
+  end
+
   resources :user_sessions, only: [:new, :create, :destroy]
 
   get '/login', to: 'user_sessions#new', as: 'login'

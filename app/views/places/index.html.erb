@@ -4,9 +4,6 @@
   <% @places.each do |place| %>
     <li>
       <%= link_to place.name, place_path(place) %>
-      <% if place.image.attached? %>
-        <%= image_tag place.image.variant(resize_to_limit: [200, 200]) %>
-      <% end %>
     </li>
   <% end %>
 </ul>
@@ -18,24 +15,3 @@
     Please log in to create a new place.
   <% end %>
 </p>
-
-<%= form_with model: @place, url: places_path, local: true do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :image %><br>
-    <%= form.file_field :image %>
-  </div>
-
-  <div>
-    <%= form.submit 'Create Place' %>
-  </div>
-<% end %>
